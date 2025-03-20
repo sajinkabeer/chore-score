@@ -1,0 +1,141 @@
+body {
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+    background: #f5f7fa;
+    padding: 20px;
+    margin: 0;
+    color: #333;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  h1 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-bottom: 25px;
+  }
+  
+  .card-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #2c3e50;
+    text-align: center;
+  }
+  
+  .progress-container {
+    margin-top: 20px;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+  }
+  
+  .progress-title {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 15px;
+  }
+  
+  .progress-bar {
+    height: 10px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(to right, #4caf50, #8bc34a);
+    border-radius: 5px;
+    transition: width 0.5s ease-in-out;
+  }
+  
+  .roommate-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .roommate-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 10px;
+    border-bottom: 1px solid #eee;
+    transition: all 0.2s ease;
+  }
+  
+  .roommate-item:hover {
+    background-color: #f9f9f9;
+    transform: translateX(5px);
+  }
+  
+  .roommate-item:last-child {
+    border-bottom: none;
+  }
+  
+  .rank {
+    width: 40px;
+    height: 40px;
+    background-color: #f2f2f2;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 15px;
+  }
+  
+  .rank-1 {
+    background-color: #ffd700;
+    color: #333;
+  }
+  
+  .rank-2 {
+    background-color: #c0c0c0;
+    color: #333;
+  }
+  
+  .rank-3 {
+    background-color: #cd7f32;
+    color: #fff;
+  }
+  
+  .roommate-info {
+    flex-grow: 1;
+  }
+  
+  .roommate-name {
+    font-weight: 600;
+  }
+  
+  .points {
+    font-weight: bold;
+    color: #4caf50;
+  }
+  
+  .footer-link {
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .footer-link a {
+    color: #4caf50;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  
+  .footer-link a:hover {
+    color: #2c3e50;
+    text-decoration: underline;
+  }

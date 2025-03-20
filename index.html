@@ -2,139 +2,39 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Roommate Leaderboard</title>
-    <style>
-      body {
-        font-family: "Poppins", sans-serif;
-        background: #f0f2f5;
-        color: #333;
-        padding: 20px;
-        margin: 0;
-      }
-
-      h1 {
-        text-align: center;
-        color: #4caf50;
-        margin-bottom: 30px;
-      }
-
-      .leaderboard {
-        max-width: 600px;
-        margin: auto;
-      }
-
-      .player-card {
-        background: #fff;
-        border-radius: 15px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        margin-bottom: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        transition: 0.3s ease;
-      }
-
-      .player-card:hover {
-        transform: translateY(-5px);
-      }
-
-      .rank {
-        font-size: 24px;
-        font-weight: bold;
-        color: #4caf50;
-        margin-right: 20px;
-      }
-
-      .name {
-        flex: 1;
-        font-size: 18px;
-      }
-
-      .points {
-        font-size: 20px;
-        font-weight: bold;
-        color: #333;
-      }
-      /* unvisited link */
-      a:link {
-        color: red;
-      }
-
-      /* visited link */
-      a:visited {
-        color: green;
-      }
-
-      /* mouse over link */
-      a:hover {
-        color: hotpink;
-      }
-
-      /* selected link */
-      a:active {
-        color: blue;
-      }
-
-      @media (max-width: 500px) {
-        .player-card {
-          flex-direction: column;
-          text-align: center;
-        }
-
-        a {
-          padding: 200px;
-        }
-
-        .rank {
-          margin: 0 0 10px 0;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <h1>🏆 Roommate Leaderboard</h1>
-    <a
-      href="https://docs.google.com/spreadsheets/d/1rHyt1zK66eUfhknGfJoKUZfk9DBE1a6skc-n4heOYSA/edit?usp=sharing"
-      class="link"
-      target="_blank"
-    >
-      Backend
-    </a>
-    <div class="leaderboard" id="leaderboard">
-      <!-- JS dynamically injects player cards here -->
+    <div class="container">
+      <h1>🏆 Roommate Leaderboard</h1>
+
+      <div class="card">
+        <div class="card-title">Roommate Rankings</div>
+        <ul class="roommate-list" id="leaderboard">
+          <!-- Roommate items will be inserted here -->
+        </ul>
+
+        <div class="progress-container">
+          <div class="progress-title">
+            <span>Week Progress</span>
+            <span id="week-text">Week X (X%)</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="week-progress"></div>
+          </div>
+        </div>
+
+        <div class="footer-link">
+          <a
+            href="https://docs.google.com/spreadsheets/d/1rHyt1zK66eUfhknGfJoKUZfk9DBE1a6skc-n4heOYSA/edit?usp=sharing"
+            target="_blank"
+            >Learn about our points system</a
+          >
+        </div>
+      </div>
     </div>
 
-    <script>
-      const API_URL =
-        "https://script.google.com/macros/s/AKfycbyQxeSkcqS9T02mfxNN1OJpOt0GVX4PGcZHW9VZdpriinqXC_uuGfes8DSifEBXJ-kZ/exec";
-
-      function loadLeaderboard() {
-        fetch(API_URL)
-          .then((res) => res.json())
-          .then((data) => {
-            const board = document.getElementById("leaderboard");
-            board.innerHTML = "";
-            data.forEach((player) => {
-              const card = `
-              <div class="player-card">
-                <div class="rank">#${player.position}</div>
-                <div class="name">${player.name}</div>
-                <div class="points">${player.aurapoints} pts</div>
-              </div>
-            `;
-              board.insertAdjacentHTML("beforeend", card);
-            });
-          })
-          .catch(() => {
-            document.getElementById("leaderboard").innerHTML = `
-            <div class="player-card">Failed to load leaderboard</div>`;
-          });
-      }
-
-      loadLeaderboard();
-      setInterval(loadLeaderboard, 60000);
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>
