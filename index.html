@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Roommate Leaderboard</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f2f2f2;
+        padding: 20px;
+      }
+      h1 {
+        color: #333;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+      }
+      th,
+      td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+        text-align: left;
+      }
+      th {
+        background-color: #4caf50;
+        color: white;
+      }
+      tr:hover {
+        background-color: #f1f1f2;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🏆 Roommate Leaderboard</h1>
+    <table id="leaderboard">
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Roommate</th>
+          <th>Points</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <script>
+      // Replace this with your deployed Google Apps Script Web App URL
+      const API_URL =
+        "https://script.google.com/macros/s/AKfycbyQxeSkcqS9T02mfxNN1OJpOt0GVX4PGcZHW9VZdpriinqXC_uuGfes8DSifEBXJ-kZ/exec";
+
+      fetch(API_URL)
+        .then((response) => response.json())
+        .then((data) => {
+          const tbody = document.querySelector("#leaderboard tbody");
+          data.forEach((player) => {
+            const row = `<tr>
+                        <td>${player.position}</td>
+                        <td>${player.name}</td>
+                        <td>${player.aurapoints}</td>
+                      </tr>`;
+            tbody.insertAdjacentHTML("beforeend", row);
+          });
+        })
+        .catch((error) => {
+          console.error("Error fetching leaderboard:", error);
+          document.querySelector("#leaderboard tbody").innerHTML =
+            '<tr><td colspan="3">Failed to load data.</td></tr>';
+        });
+      setInterval(() => location.reload(), 60000); // Refresh every 60 sec
+    </script>
+  </body>
+</html>
