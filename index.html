@@ -2,115 +2,135 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Roommate Leaderboard</title>
     <style>
       body {
-        font-family: Arial, sans-serif;
-        background: #f2f2f2;
+        font-family: "Poppins", sans-serif;
+        background: #f0f2f5;
+        color: #333;
         padding: 20px;
+        margin: 0;
       }
+
       h1 {
+        text-align: center;
+        color: #4caf50;
+        margin-bottom: 30px;
+      }
+
+      .leaderboard {
+        max-width: 600px;
+        margin: auto;
+      }
+
+      .player-card {
+        background: #fff;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: 0.3s ease;
+      }
+
+      .player-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .rank {
+        font-size: 24px;
+        font-weight: bold;
+        color: #4caf50;
+        margin-right: 20px;
+      }
+
+      .name {
+        flex: 1;
+        font-size: 18px;
+      }
+
+      .points {
+        font-size: 20px;
+        font-weight: bold;
         color: #333;
       }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        background: white;
+
+      /* unvisited link */
+      a:link {
+        color: red;
       }
-      th,
-      td {
-        padding: 12px;
-        border-bottom: 1px solid #ddd;
-        text-align: left;
+
+      /* visited link */
+      a:visited {
+        color: green;
       }
-      th {
-        background-color: #4caf50;
-        color: white;
+
+      /* mouse over link */
+      a:hover {
+        color: hotpink;
       }
-      tr:hover {
-        background-color: #f1f1f2;
+
+      /* selected link */
+      a:active {
+        color: blue;
       }
-      @media (max-width: 600px) {
-        table,
-        thead,
-        tbody,
-        th,
-        td,
-        tr {
-          display: block;
+
+      @media (max-width: 500px) {
+        .player-card {
+          flex-direction: column;
+          text-align: center;
         }
 
-        thead tr {
-          display: none;
-        }
-
-        tr {
-          margin-bottom: 15px;
-          background: #fff;
-          border-radius: 10px;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        td {
-          padding: 12px;
-          text-align: right;
-          position: relative;
-        }
-
-        td::before {
-          content: attr(data-label);
-          position: absolute;
-          left: 12px;
-          top: 12px;
-          font-weight: bold;
-          text-transform: uppercase;
-          color: #555;
+        .rank {
+          margin: 0 0 10px 0;
         }
       }
     </style>
   </head>
   <body>
     <h1>🏆 Roommate Leaderboard</h1>
-    <table id="leaderboard">
-      <thead>
-        <tr>
-          <th>Rank</th>
-          <th>Roommate</th>
-          <th>Aura Points</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
     <a
       href="https://docs.google.com/spreadsheets/d/1rHyt1zK66eUfhknGfJoKUZfk9DBE1a6skc-n4heOYSA/edit?usp=sharing"
       target="_blank"
-      >backend</a
     >
+      Backend
+    </a>
+    <div class="leaderboard" id="leaderboard">
+      <!-- JS dynamically injects player cards here -->
+    </div>
 
     <script>
-      // Replace this with your deployed Google Apps Script Web App URL
       const API_URL =
         "https://script.google.com/macros/s/AKfycbyQxeSkcqS9T02mfxNN1OJpOt0GVX4PGcZHW9VZdpriinqXC_uuGfes8DSifEBXJ-kZ/exec";
 
-      fetch(API_URL)
-        .then((response) => response.json())
-        .then((data) => {
-          const tbody = document.querySelector("#leaderboard tbody");
-          data.forEach((player) => {
-            const row = `<tr>
-                        <td>${player.position}</td>
-                        <td>${player.name}</td>
-                        <td>${player.aurapoints}</td>
-                      </tr>`;
-            tbody.insertAdjacentHTML("beforeend", row);
+      function loadLeaderboard() {
+        fetch(API_URL)
+          .then((res) => res.json())
+          .then((data) => {
+            const board = document.getElementById("leaderboard");
+            board.innerHTML = "";
+            data.forEach((player) => {
+              const card = `
+              <div class="player-card">
+                <div class="rank">#${player.position}</div>
+                <div class="name">${player.name}</div>
+                <div class="points">${player.aurapoints} pts</div>
+              </div>
+            `;
+              board.insertAdjacentHTML("beforeend", card);
+            });
+          })
+          .catch(() => {
+            document.getElementById("leaderboard").innerHTML = `
+            <div class="player-card">Failed to load leaderboard</div>`;
           });
-        })
-        .catch((error) => {
-          console.error("Error fetching leaderboard:", error);
-          document.querySelector("#leaderboard tbody").innerHTML =
-            '<tr><td colspan="3">Failed to load data.</td></tr>';
-        });
-      setInterval(() => location.reload(), 60000); // Refresh every 60 sec
+      }
+
+      loadLeaderboard();
+      setInterval(loadLeaderboard, 60000);
     </script>
   </body>
 </html>
