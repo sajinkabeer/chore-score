@@ -30,6 +30,43 @@
       tr:hover {
         background-color: #f1f1f2;
       }
+      @media (max-width: 600px) {
+        table,
+        thead,
+        tbody,
+        th,
+        td,
+        tr {
+          display: block;
+        }
+
+        thead tr {
+          display: none;
+        }
+
+        tr {
+          margin-bottom: 15px;
+          background: #fff;
+          border-radius: 10px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        td {
+          padding: 12px;
+          text-align: right;
+          position: relative;
+        }
+
+        td::before {
+          content: attr(data-label);
+          position: absolute;
+          left: 12px;
+          top: 12px;
+          font-weight: bold;
+          text-transform: uppercase;
+          color: #555;
+        }
+      }
     </style>
   </head>
   <body>
